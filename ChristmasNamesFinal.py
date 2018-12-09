@@ -1,6 +1,6 @@
 #!python3
 #Before sending an email, you need to turn off 'less secure app access'
-#https://myaccount.google.com/lesssecureapps?pli=1
+#https://myaccount.google.com/lesssecureapps
 #and enter password inside of main() function
 
 import random
@@ -8,10 +8,9 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-email_dict = {'Kimby': 'kimby618.@gmail.com', 'Andre': 'andre.b.otte1@gmail.com',
-                'Jacob': 'jacob.n.otte@gmail.com', 'Brenna': 'brenna3otte@gmail.com',
-                'Jordan': 'jowdanskie@gmail.com', 'Mom': 'lorraineotte23@gmail.com',
-                'Dad': 'bretotte@gmail.com'}
+email_dict = {'Person1': 'email1', 'Person2': 'email2',
+                'Person3': 'email3', 'Person4': 'email4',
+                'Person5': 'email5', 'Person6': 'email6'}
 
 message = '''Here is your official name!
 Rules:\n
@@ -29,15 +28,15 @@ def main():
             break
 
     for source, target in zip(names, targets):
-        password = ''
+        password = 'password'
         #print(f'{source} will give to ******.')
 
-        from_addr = 'andre.b.otte1@gmail.com'
+        from_addr = 'sending email address'
         to_addr = email_dict.get(source)
         msg = MIMEMultipart()
-        msg['From'] = 'andre.b.otte1@gmail.com'
+        msg['From'] = from_addr
         msg['To'] = to_addr
-        msg['Subject'] = 'Otte family Secret Santa'
+        msg['Subject'] = 'Secret Santa'
         email_body = (f'{message}{source} will give to {target}.')
 
         msg.attach(MIMEText(email_body, 'plain'))
