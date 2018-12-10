@@ -1,23 +1,21 @@
 #!python3
-#Before sending an email, you need to turn off 'less secure app access'
-#https://myaccount.google.com/lesssecureapps
-#and enter password inside of main() function
+#Before sending an email, you need to turn off 'less secure app access', here: https://myaccount.google.com/lesssecureapps
+#Gmail password, sender email, body of email, subject line of email, and names/email addresses need to be entered into the script. 
+
 
 import random
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
+#Enter names and email addresses
 email_dict = {'Person1': 'email1', 'Person2': 'email2',
                 'Person3': 'email3', 'Person4': 'email4',
                 'Person5': 'email5', 'Person6': 'email6'}
 
-message = '''Here is your official name!
-Rules:\n
--$20 limit.
--Get something nice!
--That's all.\n
-Name present assignment:
+#Enter body of email
+message = '''
+Insert body of email here
 '''
 
 def main():
@@ -28,26 +26,29 @@ def main():
             break
 
     for source, target in zip(names, targets):
+        #Enter gmail password
         password = 'password'
-        #print(f'{source} will give to ******.')
-
+        #Enter sending email address 
         from_addr = 'sending email address'
         to_addr = email_dict.get(source)
         msg = MIMEMultipart()
         msg['From'] = from_addr
         msg['To'] = to_addr
+        #Enter subject line of the email
         msg['Subject'] = 'Secret Santa'
         email_body = (f'{message}{source} will give to {target}.')
 
         msg.attach(MIMEText(email_body, 'plain'))
 
-        smtp_server = smtplib.SMTP('smtp.gmail.com', 587) #Specify Gmail Mail server
+        #Gmail Mail server
+        smtp_server = smtplib.SMTP('smtp.gmail.com', 587) 
 
-        smtp_server.ehlo() #Send mandatory 'hello' message to SMTP server
+        smtp_server.ehlo()
+        
+        #Start encryption
+        smtp_server.starttls() 
 
-        smtp_server.starttls() #Start TLS Encryption as we're not using SSL.
-
-        #Login to gmail: Account | Password
+        #Login to gmail
         smtp_server.login(from_addr, password)
 
         text = msg.as_string()
